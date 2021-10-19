@@ -3,6 +3,8 @@ package com.aldrek.alarmmanagerwhiledeviceisoff.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.akexorcist.snaptimepicker.SnapTimePickerDialog
+import com.akexorcist.snaptimepicker.TimeValue
 import com.aldrek.alarmmanagerwhiledeviceisoff.R
 import com.aldrek.alarmmanagerwhiledeviceisoff.adapter.common.CommonRecyclerAdapter
 import com.aldrek.alarmmanagerwhiledeviceisoff.adapter.viewholder.AlarmViewholder
@@ -46,12 +48,31 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.define(timerAdapter)
         binding.pickTimer.setOnClickListener {
 
-            showPicker {
-                Log.d("TAG", "onCreate: ")
-                val text = it.time
-                alarmList.add(text)
-                timerAdapter.items = alarmList
-            }
+//            showPicker {
+//                Log.d("TAG", "onCreate: ")
+//                val text = it.time
+//                alarmList.add(text)
+//                timerAdapter.items = alarmList
+//            }
+
+            SnapTimePickerDialog.Builder().apply {
+
+                var c = Calendar.getInstance()
+                setPreselectedTime(TimeValue(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE)))
+
+            }.build().apply {
+                setListener { hour, minute ->
+                    var selectedDate = Calendar.getInstance()
+                    selectedDate.set( Calendar.HOUR_OF_DAY , hour )
+                    selectedDate.set( Calendar.MINUTE , minute )
+                    val text =  selectedDate.toString()
+                    alarmList.add(selectedDate.time)
+                    timerAdapter.items = alarmList
+                    // Do something when user selected the time
+                    Log.d("", "setOrDeleteAlarmDependingOnTheStatusAndID: ")
+
+                }
+            }.show(supportFragmentManager, "")
 
         }
 

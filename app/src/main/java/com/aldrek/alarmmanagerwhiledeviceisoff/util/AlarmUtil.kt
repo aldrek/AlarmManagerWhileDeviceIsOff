@@ -18,6 +18,7 @@ import java.util.*
 
  fun AppCompatActivity.startAlarm(c: Calendar) {
 
+    c.set(Calendar.SECOND , 0)
     val alarmManager =
         this.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 

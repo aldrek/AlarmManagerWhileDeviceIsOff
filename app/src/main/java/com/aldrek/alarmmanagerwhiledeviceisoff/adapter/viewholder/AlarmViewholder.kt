@@ -14,7 +14,7 @@ class AlarmViewholder(var parent: ViewGroup, private val onChangeOnAlarm: ((isAl
     var tvDate: TextView = itemView.findViewById(R.id.textview)
     var cb: MaterialCheckBox = itemView.findViewById(R.id.cb)
 
-    val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
+    val outputDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault()).apply {
         var timeZone = TimeZone.getTimeZone("UTC")
     }
 
